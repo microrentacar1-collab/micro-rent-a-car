@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>لوحة التحكم | Micro Rent A Car</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" id="logoBox"><span id="logoText">MR</span></div>
+      <div class="brand-text">
+        <div class="brand-en" id="brandEn">Micro Rent A Car</div>
+        <div class="brand-ar" id="brandAr">مايكرو لتأجير السيارات</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a class="btn btn-ghost" href="./index.html">رجوع للتطبيق</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <div class="card" id="loginCard">
+        <h2>تسجيل دخول الإدارة</h2>
+        <p class="muted">افتح من السيرفر: <code>http://localhost:8000/admin.html</code></p>
+        <form id="loginForm" class="form">
+          <label>كلمة المرور
+            <input type="password" name="password" required placeholder="••••••••" />
+          </label>
+          <button class="btn" type="submit">دخول</button>
+        </form>
+        <p class="tiny muted">كلمة السر الافتراضية: <code>MR2026#</code></p>
+      </div>
+
+      <div id="adminPanel" class="hidden">
+        <div class="section-head">
+          <h2>إعدادات التطبيق</h2>
+          <div class="tools">
+            <button class="btn btn-ghost" id="exportConfigBtn">تصدير الإعدادات</button>
+            <label class="btn btn-ghost" style="cursor:pointer">
+              استيراد الإعدادات <input id="importConfigInput" type="file" accept="application/json" style="display:none" />
+            </label>
+            <button class="btn btn-ghost" id="logoutBtn">تسجيل خروج</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <form id="configForm" class="form">
+            <div class="grid2">
+              <label>اسم المكتب (EN)
+                <input name="nameEn" required />
+              </label>
+              <label>اسم المكتب (AR)
+                <input name="nameAr" required />
+              </label>
+            </div>
+
+            <div class="grid2">
+              <label>العملة
+                <input name="currency" required />
+              </label>
+              <label>حروف اللوجو (بديل للصورة)
+                <input name="logoText" maxlength="4" />
+              </label>
+            </div>
+
+            <div class="grid2">
+              <label>رفع لوجو (PNG/JPG)
+                <input type="file" name="logoFile" id="logoFile" accept="image/*" />
+              </label>
+              <label>حذف اللوجو
+                <button class="btn btn-ghost" type="button" id="removeLogoBtn">مسح صورة اللوجو</button>
+              </label>
+            </div>
+
+            <div class="grid2">
+              <label>واتساب 1 (الأساسي)
+                <input name="wa1" required />
+              </label>
+              <label>واتساب 2 (اختياري)
+                <input name="wa2" />
+              </label>
+            </div>
+
+            <div class="grid2">
+              <label>لون أساسي
+                <input type="color" name="primary" />
+              </label>
+              <label>لون ثانوي
+                <input type="color" name="secondary" />
+              </label>
+            </div>
+
+            <div class="grid2">
+              <label>خلفية التطبيق
+                <input type="color" name="bg" />
+              </label>
+              <label>لون الكروت
+                <input type="color" name="card" />
+              </label>
+            </div>
+
+            <div class="grid2">
+              <label>لون النص
+                <input type="color" name="text" />
+              </label>
+              <label>لون النص الخفيف
+                <input type="color" name="muted" />
+              </label>
+            </div>
+
+            <label>عنوان الهيدر
+              <input name="headline" />
+            </label>
+            <label>وصف مختصر
+              <input name="subhead" />
+            </label>
+
+            <div class="card" style="margin-top:12px">
+              <h3 style="margin-top:0">تغيير كلمة مرور الإدارة</h3>
+              <div class="grid2">
+                <label>كلمة المرور الحالية
+                  <input type="password" name="oldPass" placeholder="••••••••" />
+                </label>
+                <label>كلمة مرور جديدة
+                  <input type="password" name="newPass" placeholder="••••••••" />
+                </label>
+              </div>
+              <button class="btn btn-ghost" type="button" id="changePassBtn">تغيير كلمة المرور</button>
+              <p class="tiny muted">ملاحظة: كلمة المرور تُحفظ على نفس الجهاز.</p>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn" type="submit">حفظ الإعدادات</button>
+              <button class="btn btn-ghost" type="button" id="resetBtn">إرجاع الافتراضي</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="section-head" style="margin-top:18px">
+          <h2>إدارة السيارات</h2>
+          <div class="tools">
+            <button class="btn" id="addCarBtn">+ إضافة سيارة</button>
+            <button class="btn btn-ghost" id="resetCarsBtn">إرجاع سيارات الديمو</button>
+          </div>
+        </div>
+        <div id="carsTableWrap" class="card"></div>
+
+        <div class="section-head" style="margin-top:18px">
+          <h2>طلبات الحجز</h2>
+          <div class="tools">
+            <button class="btn btn-ghost" id="exportBookingsBtn">تصدير CSV</button>
+            <button class="btn btn-ghost" id="clearBookingsBtn">مسح الطلبات</button>
+          </div>
+        </div>
+        <div id="bookingsTableWrap" class="card"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal hidden" id="carModal">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="modalTitle">إضافة سيارة</h3>
+        <button class="icon-btn" id="closeModal">✕</button>
+      </div>
+      <form id="carForm" class="form">
+        <input type="hidden" name="id" />
+        <div class="grid2">
+          <label>اسم السيارة
+            <input name="name" required />
+          </label>
+          <label>الفئة (اختياري)
+            <input name="category" placeholder="SUV / Sedan…" />
+          </label>
+        </div>
+        <div class="grid2">
+          <label>سعر يومي
+            <input name="priceDaily" type="number" min="0" step="1" required />
+          </label>
+          <label>سعر أسبوعي
+            <input name="priceWeekly" type="number" min="0" step="1" required />
+          </label>
+        </div>
+        <div class="grid2">
+          <label>سعر شهري
+            <input name="priceMonthly" type="number" min="0" step="1" required />
+          </label>
+          <label>الحالة
+            <select name="status" required>
+              <option value="available">متاحة</option>
+              <option value="booked">محجوزة</option>
+            </select>
+          </label>
+        </div>
+        <label>رابط صورة (اختياري)
+          <input name="imageUrl" placeholder="https://..." />
+        </label>
+        <label>ملاحظات (اختياري)
+          <textarea name="notes" rows="3"></textarea>
+        </label>
+        <div class="form-actions">
+          <button class="btn" type="submit">حفظ</button>
+          <button class="btn btn-ghost" type="button" id="deleteCarBtn">حذف</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script defer src="./app.js"></script>
+  <script defer src="./admin.js"></script>
+</body>
+</html>

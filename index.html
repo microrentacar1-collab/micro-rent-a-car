@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Micro Rent A Car | مايكرو لتأجير السيارات</title>
+
+  <link rel="manifest" href="./manifest.json" />
+  <meta name="theme-color" content="#0b0f14" />
+  <link rel="icon" href="./icon-192.png" />
+
+  <link rel="stylesheet" href="./styles.css" />
+<script defer data-domain="blush-ezmeralda-24.tiiny.site" src="https://analytics.tiiny.site/js/plausible.js"></script><script type="text/javascript" src="https://tiiny.host/ad-script.js"></script></head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" id="logoBox"><span id="logoText">MR</span></div>
+      <div class="brand-text">
+        <div class="brand-en" id="brandEn">Micro Rent A Car</div>
+        <div class="brand-ar" id="brandAr">مايكرو لتأجير السيارات</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#cars">السيارات</a>
+      <a href="#how">طريقة الحجز</a>
+      <a class="btn btn-ghost" href="./admin.html">لوحة التحكم</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <h1 id="headline">استأجر سيارتك بسهولة في دقائق</h1>
+        <p class="muted" id="subhead">يومي • أسبوعي • شهري — العملة: <strong id="currency">AED</strong></p>
+
+        <div class="hero-actions">
+          <a class="btn" id="waQuick" href="#">حجز سريع واتساب</a>
+          <a class="btn btn-ghost" href="#cars">عرض السيارات</a>
+          <button class="btn btn-ghost" id="installBtn" type="button" style="display:none">تثبيت التطبيق</button>
+        </div>
+
+        <div class="meta">
+          <div class="chip">🚗 سيارات نظيفة ومفحوصة</div>
+          <div class="chip">⚡ تسليم/استلام سريع</div>
+          <div class="chip">📍 الفجيرة</div>
+        </div>
+      </div>
+
+      <div class="hero-right card">
+        <h3>طلب حجز سريع</h3>
+        <form id="bookingForm" class="form">
+          <div class="grid2">
+            <label>الاسم
+              <input name="name" required placeholder="اكتب اسمك" />
+            </label>
+            <label>رقم الهاتف
+              <input name="phone" required placeholder="05xxxxxxxx" />
+            </label>
+          </div>
+          <div class="grid2">
+            <label>تاريخ البداية
+              <input type="date" name="startDate" required />
+            </label>
+            <label>تاريخ النهاية
+              <input type="date" name="endDate" required />
+            </label>
+          </div>
+          <div class="grid2">
+            <label>نوع الإيجار
+              <select name="rentalType" required>
+                <option value="daily">يومي</option>
+                <option value="weekly">أسبوعي</option>
+                <option value="monthly">شهري</option>
+              </select>
+            </label>
+            <label>السيارة
+              <select name="carId" id="carSelect" required></select>
+            </label>
+          </div>
+          <label>ملاحظات (اختياري)
+            <textarea name="notes" rows="3" placeholder="مكان التسليم/الاستلام…"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button class="btn" type="submit">إرسال الطلب</button>
+            <button class="btn btn-ghost" type="button" id="sendToWhatsApp">إرسال نفس الطلب على واتساب</button>
+          </div>
+          <p class="tiny muted">الطلب يتسجل على نفس الجهاز (نسخة MVP).</p>
+        </form>
+      </div>
+    </section>
+
+    <section id="cars" class="section">
+      <div class="section-head">
+        <h2>السيارات</h2>
+        <div class="tools">
+          <input id="search" placeholder="ابحث باسم السيارة…" />
+          <select id="availability">
+            <option value="all">الكل</option>
+            <option value="available">متاحة</option>
+            <option value="booked">محجوزة</option>
+          </select>
+        </div>
+      </div>
+      <div id="carsGrid" class="grid"></div>
+    </section>
+
+    <section id="how" class="section">
+      <div class="card">
+        <h2>طريقة الحجز</h2>
+        <ol class="list">
+          <li>اختار السيارة ومدة الإيجار (يومي/أسبوعي/شهري).</li>
+          <li>اضغط “احجز على واتساب” أو املأ “طلب حجز سريع”.</li>
+          <li>هنرد عليك لتأكيد التوفر والتسليم.</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>© <span id="year"></span> <span id="footerName">Micro Rent A Car</span></div>
+    <div class="footer-links">
+      <a id="waFooter" href="#">واتساب</a>
+      <a href="./admin.html">لوحة التحكم</a>
+    </div>
+  </footer>
+
+  <script defer src="./app.js"></script>
+</body>
+</html>
